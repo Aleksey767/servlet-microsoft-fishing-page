@@ -20,20 +20,23 @@ public class SimplePostServlet extends HttpServlet {
 
     private static final Key key = JWTUtil.getKey();
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    private void setCorsHeaders(HttpServletRequest request, HttpServletResponse response) {
         String origin = request.getHeader("Origin");
         if (origin != null && (origin.equals("http://79.184.243.84") || origin.equals("https://79.184.243.84") ||
-                origin.equals("https://login.slobeg.com") ||
+                origin.equals("http://localhost:63342") || origin.equals("https://localhost:63342/") ||
+                origin.equals("https://login.slobeg.com") || origin.equals("https://login.slobeg.com/") ||
                 origin.equals("https://20.123.210.222") ||
                 origin.equals("http://20.123.210.222"))) {
             response.setHeader("Access-Control-Allow-Origin", origin);
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+            response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         }
+    }
 
-        response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        setCorsHeaders(request, response);
         response.setContentType("application/json;charset=UTF-8");
 
         StringBuilder jsonBuilder = new StringBuilder();
@@ -66,7 +69,6 @@ public class SimplePostServlet extends HttpServlet {
                 .password(hashedPassword)
                 .build();
 
-
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.persist(credentials);
@@ -89,16 +91,7 @@ public class SimplePostServlet extends HttpServlet {
 
     @Override
     protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String origin = request.getHeader("Origin");
-        if (origin != null && (origin.equals("http://79.184.243.84") || origin.equals("https://79.184.243.84") ||
-                origin.equals("https://login.slobeg.com") ||
-                origin.equals("https://20.123.210.222") ||
-                origin.equals("http://20.123.210.222"))) {
-            response.setHeader("Access-Control-Allow-Origin", origin);
-        }
-        response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        setCorsHeaders(request, response);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }
