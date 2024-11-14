@@ -17,22 +17,16 @@ import java.security.Key;
 
 @WebServlet("/api/user/signup")
 public class SimplePostServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write("{\"message\":\"Test successful\"}");
-    }
 
     private static final Key key = JWTUtil.getKey();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        String origin = request.getHeader("Origin");
+        if (origin != null && (origin.equals("https://login.slobeg.com") || origin.equals("https://20.123.210.222/") || origin.equals("http://localhost:63342") || origin.equals("http://20.123.210.222"))) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+        }
         response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -91,7 +85,10 @@ public class SimplePostServlet extends HttpServlet {
 
     @Override
     protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        String origin = request.getHeader("Origin");
+        if (origin != null && (origin.equals("https://login.slobeg.com") || origin.equals("https://20.123.210.222/") || origin.equals("http://localhost:63342") || origin.equals("http://20.123.210.222"))) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+        }
         response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
