@@ -19,7 +19,7 @@ public class CORSFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-        httpResponse.setHeader("Access-Control-Allow-Origin", "http://20.123.210.222");
+        httpResponse.setHeader("Access-Control-Allow-Origin", "https://login.slobeg.com/");
         httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
