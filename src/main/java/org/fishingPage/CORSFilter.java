@@ -21,13 +21,14 @@ public class CORSFilter implements Filter {
 
         String origin = httpRequest.getHeader("Origin");
         if (origin != null) {
-            httpResponse.setHeader("Access-Control-Allow-Origin", origin);
+            httpResponse.setHeader("Access-Control-Allow-Origin", "*"); // Разрешить доступ с любого источника
             httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
             httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
             httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
             httpResponse.setHeader("Access-Control-Max-Age", "3600");
         }
 
+        // Если это preflight-запрос, завершить обработку
         if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
             httpResponse.setStatus(HttpServletResponse.SC_OK);
             return;
