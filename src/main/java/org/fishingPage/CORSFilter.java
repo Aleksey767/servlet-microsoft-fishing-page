@@ -19,11 +19,17 @@ public class CORSFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-        httpResponse.setHeader("Access-Control-Allow-Origin", "*");
-        httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
-        httpResponse.setHeader("Access-Control-Max-Age", "3600");
+        String origin = httpRequest.getHeader("Origin");
+        if (origin != null && (origin.equals("http://79.184.243.84") || origin.equals("https://79.184.243.84") ||
+                origin.equals("http://localhost:63342") || origin.equals("https://localhost:63342/") ||
+                origin.equals("https://login.slobeg.com") ||
+                origin.equals("https://20.123.210.222") ||
+                origin.equals("http://20.123.210.222"))) {
+            httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+            httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+            httpResponse.setHeader("Access-Control-Max-Age", "3600");
+        }
 
         if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
             httpResponse.setStatus(HttpServletResponse.SC_OK);

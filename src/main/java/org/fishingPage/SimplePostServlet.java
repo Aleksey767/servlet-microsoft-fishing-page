@@ -24,7 +24,7 @@ public class SimplePostServlet extends HttpServlet {
         String origin = request.getHeader("Origin");
         if (origin != null && (origin.equals("http://79.184.243.84") || origin.equals("https://79.184.243.84") ||
                 origin.equals("http://localhost:63342") || origin.equals("https://localhost:63342/") ||
-                origin.equals("https://login.slobeg.com") || origin.equals("https://login.slobeg.com") ||
+                origin.equals("https://login.slobeg.com")  ||
                 origin.equals("https://20.123.210.222") ||
                 origin.equals("http://20.123.210.222"))) {
             response.setHeader("Access-Control-Allow-Origin", origin);
