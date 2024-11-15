@@ -20,14 +20,11 @@ public class CORSFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         String origin = httpRequest.getHeader("Origin");
-        if (origin != null && (origin.equals("http://79.184.243.84") || origin.equals("https://79.184.243.84") ||
-                origin.equals("http://localhost:63342") || origin.equals("https://localhost:63342/") ||
-                origin.equals("https://login.slobeg.com") ||
-                origin.equals("https://20.123.210.222") ||
-                origin.equals("http://20.123.210.222"))) {
-            httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-            httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        if (origin != null) {
+            httpResponse.setHeader("Access-Control-Allow-Origin", origin);
             httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+            httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+            httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
             httpResponse.setHeader("Access-Control-Max-Age", "3600");
         }
 
