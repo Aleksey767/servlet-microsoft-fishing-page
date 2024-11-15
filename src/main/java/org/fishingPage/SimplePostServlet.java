@@ -1,7 +1,6 @@
 package org.fishingPage;
 
 import io.jsonwebtoken.Jwts;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,11 +21,7 @@ public class SimplePostServlet extends HttpServlet {
 
     private void setCorsHeaders(HttpServletRequest request, HttpServletResponse response) {
         String origin = request.getHeader("Origin");
-        if (origin != null && (origin.equals("http://79.184.243.84") || origin.equals("https://79.184.243.84") ||
-                origin.equals("http://localhost:63342") || origin.equals("https://localhost:63342/") ||
-                origin.equals("https://login.slobeg.com")  ||
-                origin.equals("https://20.123.210.222") ||
-                origin.equals("http://20.123.210.222"))) {
+        if (origin != null && (origin.equals("http://localhost:63342") || origin.equals("https://login.slobeg.com"))) {
             response.setHeader("Access-Control-Allow-Origin", origin);
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
@@ -35,7 +30,7 @@ public class SimplePostServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         setCorsHeaders(request, response);
         response.setContentType("application/json;charset=UTF-8");
 
@@ -90,15 +85,16 @@ public class SimplePostServlet extends HttpServlet {
     }
 
     @Override
-    protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doOptions(HttpServletRequest request, HttpServletResponse response) {
         setCorsHeaders(request, response);
         response.setStatus(HttpServletResponse.SC_OK);
     }
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         setCorsHeaders(request, response);
         response.setContentType("text/plain;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write("Hello, World!");
+        response.getWriter().write("API is working!");
     }
 }
