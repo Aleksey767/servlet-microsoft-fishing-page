@@ -1,8 +1,13 @@
 package org.fishingPage;
+
 import lombok.*;
 
 import jakarta.persistence.*;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -22,7 +27,14 @@ public class Credentials {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "creation_timestamp", nullable = false)
+    private LocalDateTime creationTimestamp;
+
     public void setPassword(String password) {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public void setCreationTimestampWithTimezone() {
+        this.creationTimestamp = ZonedDateTime.now(ZoneId.of("Europe/Warsaw")).toLocalDateTime();
     }
 }
