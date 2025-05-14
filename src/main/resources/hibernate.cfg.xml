@@ -5,9 +5,9 @@
     <session-factory>
 
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://20.123.210.222:5432/fishingpage</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://4.231.48.10:5432/fishingpage</property>
         <property name="hibernate.connection.username">solbeg_user</property>
-        <property name="hibernate.connection.password">rockstars</property>
+        <property name="hibernate.connection.password">rockstarts</property>
 
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 

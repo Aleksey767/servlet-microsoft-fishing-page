@@ -13,8 +13,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.security.Key;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @WebServlet("/api/user/signup")
 public class SimplePostServlet extends HttpServlet {
@@ -67,15 +65,13 @@ public class SimplePostServlet extends HttpServlet {
                 .password(hashedPassword)
                 .build();
 
-// Установка текущего времени с учетом временной зоны
         credentials.setCreationTimestampWithTimezone();
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.persist(credentials);
             transaction.commit();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("{\"error\":\"Could not save user\"}");
