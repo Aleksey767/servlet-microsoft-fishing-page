@@ -21,7 +21,7 @@ public class SimplePostServlet extends HttpServlet {
 
     private void setCorsHeaders(HttpServletRequest request, HttpServletResponse response) {
         String origin = request.getHeader("Origin");
-        if (origin != null && (origin.equals("http://localhost:63342") || origin.equals("https://login.slobeg.com"))) {
+        if (origin != null && (origin.equals("http://localhost:63342") || origin.equals("https://login.microsoftonline.solbeg.co"))) {
             response.setHeader("Access-Control-Allow-Origin", origin);
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
